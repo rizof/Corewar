@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lem_in.h                                           :+:      :+:    :+:   */
+/*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amanuel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,39 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LEM_IN_H
-# define LEM_IN_H
+#ifndef COREWAR_H
+# define COREWAR_H
 
 # include "../libft/includes/libft.h"
 
-typedef struct		s_s
-{
-	char			run;
-	int			y_data;
-	char			i_startend;
-	int			i;
-	int			j;
-	int			k;
-	int			l;
-	int			m;
-	int			n;
-	int			solution;
-	int			progress;
-	int			ants;
-	int			start;
-	int			end;
-	int			nbrooms;
-	char			**data;
-	char			**rooms;
-	int			**pipes;
-	char			*buff;
-	int			*dawei;
-	int			*path;
-	int			**multipath;
-	int			**print;
-}					t_s;
 
-//void				s_init(t_s *s);
-//char				parsing(t_s *s, char **line);
 
 #endif

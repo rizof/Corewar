@@ -12,7 +12,7 @@
 
 # Binary
 
-NAME =	project 
+NAME =	corewar 
 
 
 
@@ -28,7 +28,7 @@ INC_PATH = ./includes/
 
 # Name
 
-SRC_NAME = new_project.c \
+SRC_NAME = corewar.c \
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 
@@ -74,7 +74,7 @@ all: $(NAME)
 $(NAME): $(OBJ) 
 	@make -C libft/
 	@gcc $(FLAGS) -o $(NAME) $(OBJ) $(LIB)
-	@printf "\rNew Project done                \n"
+	@printf "\rCorewar done                \n"
 	@tput cvvis
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
@@ -90,14 +90,14 @@ clean:
 	@rm -rf $(OBJ_PATH)
 	@make -C libft/ clean
 	@tput setaf 9
-	@echo "New Project clean"
+	@echo "Corewar clean"
 
 fclean: 
 	@rm -f $(NAME)
 	@rm -rf $(OBJ_PATH)
 	@make -C libft/ fclean
 	@tput setaf 9
-	@echo "New Project fclean"
+	@echo "Corewar fclean"
 
 re:
 	@make fclean && make
