@@ -12,9 +12,21 @@
 
 #include "corewar.h"
 
-int		main(void)
+int		main(int ac, char **av)
 {
+	int	fd;
+	char	*line;
+	int	test;
 
-
+	if (ac  <= 1)
+		return (0);
+	while (*(++av))
+	{
+		fd = open(*av, O_RDONLY);
+		test = lseek(fd, 0, SEEK_END);
+		printf("fd:%d\nlseek:%d\n", fd, test);
+		while (get_next_line(fd, &line) > 0)
+			printf("%s\n", line);
+	}
 	return (1);
 }
