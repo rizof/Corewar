@@ -5,14 +5,14 @@
 #                                                     +:+ +:+         +:+      #
 #    By: amanuel <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2017/11/13 17:13:20 by tmanuel           #+#    #+#              #
-#    Updated: 2018/12/27 16:18:20 by amanuel          ###   ########.fr        #
+#    Created: 2017/11/24 01:22:10 by tmanuel           #+#    #+#              #
+#    Updated: 2018/12/29 20:45:15 by amanuel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Binary
 
-NAME = libft.a
+NAME =	asm 
 
 
 
@@ -28,43 +28,9 @@ INC_PATH = ./includes/
 
 # Name
 
-SRC_NAME =	ft_atoi.c \
-		ft_atol.c \
-		ft_itoa.c \
-		ft_memalloc.c \
-		ft_memdel.c \
-		ft_memset.c \
-		ft_pow.c \
-		ft_strchr.c \
-		ft_strclr.c \
-		ft_strcpy.c \
-		ft_strdup.c \
-		ft_strjoin_free.c \
-		ft_strlen.c \
-		ft_strndel.c \
-		ft_strndup.c \
-		ft_strnew.c \
-		ft_strnjoin_free.c \
-		ft_tabnew.c \
-		get_next_line.c \
-		ft_findc.c \
-		ft_printf_part_1.c \
-		ft_printf_part_2.c \
-		ft_ltoa.c \
-		ft_uitoa_base.c \
-		ft_ultoa_base.c \
-		ft_itostr.c \
-		ft_strset.c \
-		ft_lilstr.c \
-		ft_strins_free.c \
-		ft_freetab.c \
-		ft_tablen.c \
-		ft_strcmp.c \
-		ft_strncmp.c \
-		ft_addarray.c \
-		ft_isint.c \
-		ft_puttab.c \
-	
+SRC_NAME = asm_main.c \
+	   asm_parsing.c \
+
 OBJ_NAME = $(SRC_NAME:.c=.o)
 
 
@@ -79,7 +45,13 @@ OBJ = $(addprefix $(OBJ_PATH),$(OBJ_NAME))
 
 # Flags
 
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror 
+
+
+
+# Libft
+
+LIB =  -L libft/ -lft
 
 
 
@@ -98,12 +70,12 @@ endif
 
 # Rules
 
-all: $(NAME)
+all: $(NAME) 
 
 $(NAME): $(OBJ) 
-	@ar rc $(NAME) $(OBJ)
-	@ranlib $(NAME)
-	@printf "\rLibft done                    \n"
+	@make -C libft/
+	@gcc $(FLAGS) -o $(NAME) $(OBJ) $(LIB)
+	@printf "\rasm done                \n"
 	@tput cvvis
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
@@ -117,14 +89,16 @@ $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 
 clean:
 	@rm -rf $(OBJ_PATH)
+	@make -C libft/ clean
 	@tput setaf 9
-	@echo "Libft clean"
+	@echo "asm clean"
 
 fclean: 
 	@rm -f $(NAME)
 	@rm -rf $(OBJ_PATH)
+	@make -C libft/ fclean
 	@tput setaf 9
-	@echo "Libft fclean"
+	@echo "asm fclean"
 
 re:
 	@make fclean && make

@@ -1,32 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   new_project.c                                      :+:      :+:    :+:   */
+/*   ft_strncpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amanuel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/01 15:51:36 by amanuel           #+#    #+#             */
-/*   Updated: 2018/12/31 07:12:41 by amanuel          ###   ########.fr       */
+/*   Created: 2017/09/14 20:49:34 by amanuel           #+#    #+#             */
+/*   Updated: 2018/06/09 02:22:20 by amanuel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
+#include "libft.h"
 
-int		main(int ac, char **av)
+char	*ft_strncpy(char *dst, char *src, int len)
 {
-	int	fd;
-	char	*line;
-	int	test;
+	int		i;
 
-	if (ac  <= 1)
-		return (0);
-	while (*(++av))
+	i = 0 + (-1);
+	if (src)
 	{
-		fd = open(*av, O_RDONLY);
-		test = lseek(fd, 0, SEEK_END);
-		printf("fd:%d\nlseek:%d\n", fd, test);
-		while (get_next_line(fd, &line) > 0)
-			printf("%s\n", line);
+		len++;
+		while (--len && src[++i])
+			dst[i] = src[i];
+		len++;
+		while (--len)
+			dst[i++] = '\0';
 	}
-	return (1);
+	return (dst);
 }

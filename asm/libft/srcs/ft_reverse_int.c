@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   ft_reverse_int.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amanuel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/09/14 20:58:43 by amanuel           #+#    #+#             */
-/*   Updated: 2018/12/21 11:17:52 by amanuel          ###   ########.fr       */
+/*   Created: 2017/09/14 04:56:39 by amanuel           #+#    #+#             */
+/*   Updated: 2018/10/01 15:12:36 by amanuel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_strncmp(char *s1, char *s2, int n)
+int			ft_reverse_int(int i)
 {
-	if (!s1 || !s2)
-	{
-		write(1, "ft_strncmp lack strings\n", 24);
-		exit(-1);
-	}
-	while (n-- && *s1 && *s1 == *s2)
-	{
-		s1++;
-		s2++;
-	}
-	return ((unsigned char)*s1 - (unsigned char)*s2);
+	char		src[4];
+	char		ret[4];
+	int8_t		j;
+
+	*(int*)src = i;
+	j = 0 + (-1);
+	while (++j < 4)
+		ret[j] = src[3 - j];
+	i = *(int*)ret;
+	return (i);
 }

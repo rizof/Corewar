@@ -20,6 +20,14 @@
 # include <unistd.h>
 # include <stdio.h>
 
+typedef struct		s_list
+{
+	void		*content;
+	size_t		content_size;
+	struct s_list	*next;
+
+}			t_list;
+
 int				ft_atoi(char *str);
 long			ft_atol(char *str);
 char			*ft_itoa(int i);
@@ -56,5 +64,8 @@ int				ft_strcmp(char *s1, char *s2);
 int				ft_strncmp(char *s1, char *s2, int n);
 int				ft_isint(char *line, char bits);
 void				ft_puttab(char **tab);
+void				ft_putvoid_fd(void *v, size_t len , int fd);
+int				ft_reverse_int(int i);
+char				*ft_strncpy(char *s1, char *s2, int n);
 
 #endif
