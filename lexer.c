@@ -1,6 +1,30 @@
 
 
 /*
+** La struct pour les tokens,
+** Une enum pour le type, un table de chars pour le lexeme (la valeur du token)
+** et line/col si on veut pouvoir afficher des erreurs un peu classes ;)
+** Ca doit pas etre sorcier de trouver la longueur max des lexemes, donc autant
+** faire un tableau de chars plutot que de malloc une string.
+*/
+
+typedef struct	s_tok
+{
+	enum
+	{
+		NONE,
+		LABEL,
+		OPCODE,
+		DIRECT,
+		INDIRECT,
+		REGISTER
+	}			type;
+	char		lexeme[LEXEME_LAX_LEN];
+	int			line;
+	int			col;
+}				t_tok;
+
+/*
 ** Donc on a un parser qui prend argv[1] ou whatever en parametre,
 ** C'est a dire le path du fichier .s a compiler
 */
