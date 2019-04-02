@@ -1,19 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putvoid_fd.c                                    :+:      :+:    :+:   */
+/*   ft_count_whitespace.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amanuel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/22 14:04:24 by amanuel           #+#    #+#             */
-/*   Updated: 2017/12/06 06:16:37 by amanuel          ###   ########.fr       */
+/*   Created: 2017/09/14 04:56:39 by amanuel           #+#    #+#             */
+/*   Updated: 2018/10/01 15:12:36 by amanuel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putvoid_fd(void *v, size_t len, int fd)
+int				ft_count_whitespace(char *s)
 {
-	if (v && fd && len)
-		write(fd, (char*)v, len);
+	char			*initial;
+
+	initial = s;
+	while (s && *s && (*s == ' ' || *s == '\t' || *s == '\n'))
+		s++;
+	return (s - initial);
 }

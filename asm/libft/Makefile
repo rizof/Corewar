@@ -67,6 +67,10 @@ SRC_NAME =	ft_atoi.c \
 		ft_putvoid_fd.c \
 		ft_reverse_int.c \
 		ft_strncpy.c \
+		ft_count_whitespace.c \
+		ft_strstr.c \
+		ft_strnstr.c \
+		ft_lstaddnew_free.c \
 	
 OBJ_NAME = $(SRC_NAME:.c=.o)
 

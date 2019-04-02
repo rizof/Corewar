@@ -1,19 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putvoid_fd.c                                    :+:      :+:    :+:   */
+/*   ft_lstaddnew_free.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amanuel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/22 14:04:24 by amanuel           #+#    #+#             */
-/*   Updated: 2017/12/06 06:16:37 by amanuel          ###   ########.fr       */
+/*   Created: 2017/09/14 04:56:39 by amanuel           #+#    #+#             */
+/*   Updated: 2018/10/01 15:12:36 by amanuel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putvoid_fd(void *v, size_t len, int fd)
+t_list		*ft_lstaddnew_free(t_list *old, void *content, size_t content_size)
 {
-	if (v && fd && len)
-		write(fd, (char*)v, len);
+	t_list	*fresh;
+
+	fresh = (t_list*)ft_memalloc(sizeof(t_list));
+	if (content)
+		fresh->content = content;
+	if (content_size)
+		fresh->content_size = content_size;
+	if (old)
+		old->next = fresh;
+	return (fresh);
 }

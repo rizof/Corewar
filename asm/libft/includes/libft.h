@@ -67,5 +67,9 @@ void				ft_puttab(char **tab);
 void				ft_putvoid_fd(void *v, size_t len , int fd);
 int				ft_reverse_int(int i);
 char				*ft_strncpy(char *s1, char *s2, int n);
+int			ft_count_whitespace(char *s);
+char				*ft_strstr(char *s, char *to_find);
+char				*ft_strnstr(char *s, char *to_find, int len);
+t_list			*ft_lstaddnew_free(t_list *old, void *content, size_t content_size);
 
 #endif
