@@ -13,8 +13,10 @@
 #include "asm.h"
 #include "op.h"
 
-char			ft_error(t_asm *s, int y, int x)
+char			ft_error(t_asm *s, int y, int x, char *str)
 {
+	printf("%s\n", str);
+	printf("%s[%c]\n", s->line, s->line[s->x]);
 	s->y = y;
 	s->x = x;
 	printf("Lexical error at [%d:%d]\n", s->y, s->x);
@@ -94,6 +96,7 @@ int			main(int ac, char **av)
 		while (!s->error && get_next_line(s->fd, &s->line) > 0
 				&& ++s->y && !(s->x = 0))
 			ft_parse_and_transcript(s);
+		ft_exec_labels(s);
 		close(s->fd);
 	}
 	else if (++s->error)

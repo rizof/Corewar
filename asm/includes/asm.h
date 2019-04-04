@@ -38,17 +38,31 @@
 
 typedef struct			s_asm
 {
-	uint8_t			**inst_tab;
-	int			inst_val;
-	int			inst_len;
+
 
 	int			fd;
 	char			*line;
 	char			*file_name;
 	int			file_name_size;
 
+	struct s_list		*first_part;
+	struct s_list		*part;
+	char			*p;
+	int			current_position;
 	char			malloc_and_magicnb;
 	char			name_and_comment;
+	uint8_t			**inst_tab;
+	int			inst_val;
+	int			inst_len;
+	char			*label_name;
+	char			**label_name_lst;
+	char			**label_called_lst;
+	int			*label_val;
+	int			**label_val_lst;
+	int			**label_called_val_lst;
+	void			*label_pointer;
+	void			**label_pointer_lst;
+
 	int			i;
 	int			j;
 
@@ -56,14 +70,12 @@ typedef struct			s_asm
 	int			y;
 	int			x;
 
-	struct s_list		*first_part;
-	struct s_list		*part;
-	char			*p;
-
 	int			len;
 }				t_asm;
 
 void				ft_parse_and_transcript(t_asm *s);
-char				ft_error(t_asm *s, int y, int x);
+void				ft_instruction_line(t_asm *s);
+char				ft_error(t_asm *s, int y, int x, char *str);
+void				ft_exec_labels(t_asm *s);
 
 #endif

@@ -58,18 +58,19 @@ char			*ft_strset(char *b, char c, short len);
 char			*ft_lilstr(char a, char b, char c);
 char			*ft_strins_free(char *s1, char *s2, short i, char f);
 void			ft_freetab(void ***tab);
-void			**ft_addarray(void ***tab, void **str);
+void			**ft_addarray(void **tab, void *array);
 int				ft_tablen(void **tab);
 int				ft_strcmp(char *s1, char *s2);
 int				ft_strncmp(char *s1, char *s2, int n);
 int				ft_isint(char *line, char bits);
 void				ft_puttab(char **tab);
 void				ft_putvoid_fd(void *v, size_t len , int fd);
-int				ft_reverse_int(int i);
+int				ft_reverse_int(int i, char bits);
 char				*ft_strncpy(char *s1, char *s2, int n);
 int			ft_count_whitespace(char *s);
 char				*ft_strstr(char *s, char *to_find);
 char				*ft_strnstr(char *s, char *to_find, int len);
 t_list			*ft_lstaddnew_free(t_list *old, void *content, size_t content_size);
+int			ft_strtab(char **tab, char *to_find);
 
 #endif

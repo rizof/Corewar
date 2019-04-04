@@ -1,36 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_stradd.c                                        :+:      :+:    :+:   */
+/*   ft_strtab.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amanuel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/19 21:38:26 by amanuel           #+#    #+#             */
-/*   Updated: 2018/12/27 16:36:54 by amanuel          ###   ########.fr       */
+/*   Created: 2017/09/14 20:58:43 by amanuel           #+#    #+#             */
+/*   Updated: 2017/12/06 01:50:12 by amanuel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void		**ft_addarray(void **tab, void *array)
+int	ft_strtab(char **tab, char *to_find)
 {
 	int		i;
-	int		j;
-	void	**fresh;
 
-	if (!array)
-		return (tab);
-	i = ft_tablen(tab);
-	fresh = ft_tabnew(i + 1, 0, 0);
-	j = 0;
-	if (i && --j)
-	{
-		while ((tab)[++j])
-			fresh[j] = (tab)[j];
-		free(tab);
-		tab = NULL;
-	}
-	fresh[j] = array;
-	array = NULL;
-	return (fresh);
+	if (!tab || !to_find || !*to_find)
+		return (-1);
+	i = 0 + (-1);
+	while (tab[++i])
+		if (!ft_strcmp(tab[i], to_find))
+			return (i);
+	return (-1);
 }

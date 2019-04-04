@@ -71,6 +71,7 @@ SRC_NAME =	ft_atoi.c \
 		ft_strstr.c \
 		ft_strnstr.c \
 		ft_lstaddnew_free.c \
+		ft_strtab.c \
 	
 OBJ_NAME = $(SRC_NAME:.c=.o)
 
