@@ -28,6 +28,7 @@ static void		ft_print_and_free(t_asm *s, char *av)
 {
 	t_list		*byebye;
 
+	*(int*)(s->first_part->content + 8 + PROG_NAME_LENGTH) = ft_reverse_int(s->current_position, 32);
 	if (!s->error)
 	{
 		s->file_name = ft_strndup(av, s->file_name_size - 2);

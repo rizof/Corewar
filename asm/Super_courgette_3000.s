@@ -1,22 +1,21 @@
 .name		"Super_courgette_3000"
 .comment	"Je galere, comme un aveugle qui se torche le cul."
 
-qwe:		zjmp		%:aze
-aze:		zjmp		%:qwe
-test2:		live		%42
-		live		%:test2
-		ld		:test,r5
-test:		st		r1,r1
-		add		r1,r1,r1
-		sub		r1,r1,r1
-		and		r1,r1,r1
-pouet:		or		r1,r1,r1
-		xor		r1,r1,r1
-		zjmp		%42
-		ldi		r1,r1,r1
-encore:		sti		r1,r1,r1
-		fork		%42
-		lld		%42,r1
-		lldi		r1,r1,r1
-		lfork		%42
-		aff		r1
+1:	live		%:99999999
+2:	ld		%:99999999,r5
+3:	st		r1,:test
+4:	add		r1,r1,r1
+5:	sub		r1,r1,r1
+6:	and		%:99999999,%:99999999,r1
+7:	or		%:99999999,%:99999999,r1
+8:	xor		%:99999999,%:99999999,r1
+9:	zjmp		%:99999999
+10:	ldi		%:99999999,%:99999999,r1
+11:	sti		r1,%99999999,%99999999
+12:	fork		%:99999999
+13:	lld		%:99999999,r1
+14:	lldi		%:99999999,%:99999999,r1
+15:	lfork		%:99999999
+16:	aff		r1
+test:	live		%99
+99999999:	live		%99

@@ -15,29 +15,27 @@
 
 void			ft_exec_labels(t_asm *s)
 {
-//	printf("exec label\n");
 	s->i = 0 + (-1);
 	while (!s->error && s->label_called_lst && s->label_called_lst[++s->i])
 	{
-		s->j = 0;
-		if ((s->j = ft_strtab(s->label_name_lst, s->label_called_lst[s->i]) >= 0))
+		s->j = -1;
+		if ((s->j = ft_strtab(s->label_name_lst, s->label_called_lst[s->i])) >= 0)
 		{
 			if (s->label_called_val_lst[s->i][1] == 16)
+			{
 				*(short*)(s->label_pointer_lst[s->i]) = ft_reverse_int(
-		*s->label_val_lst[s->j] - *s->label_called_val_lst[s->i] - 1, 16);
+		*s->label_val_lst[s->j] - *s->label_called_val_lst[s->i], 16);
+			}
 			else
+			{
 				*(int*)(s->label_pointer_lst[s->i]) = ft_reverse_int(
-		*s->label_val_lst[s->j] - *s->label_called_val_lst[s->i] - 1, 32);
-//			printf("{%s}[%d]{%s}[%d]\n", s->label_name_lst[s->i], *s->label_val_lst[s->j]
-	//			, s->label_called_lst[s->j], *s->label_called_val_lst[s->i]);
-
-		
+		*s->label_val_lst[s->j] - *s->label_called_val_lst[s->i], 32);
+			}
 		}
 		else
 			ft_error(s, s->label_called_val_lst[s->i][2],
 					s->label_called_val_lst[s->i][3], "exec labels");
 	}
-//	printf("[%d][%d][%d]\n", s->y, s->current_position, s->inst_len);
 }
 
 static void		ft_label_value_registration(t_asm *s, char bits)
@@ -62,7 +60,7 @@ static void		ft_label_value_registration(t_asm *s, char bits)
 		s->x += s->j;
 		s->x += ft_count_whitespace(s->line + s->x);
 		s->inst_len += 2;
-		if (*s->p == 1)
+		if (bits == 32)
 			s->inst_len += 2;
 	}
 	else
@@ -111,12 +109,14 @@ static void		ft_register_action(t_asm *s)
 	else if (!s->error && s->line[s->x] == DIRECT_CHAR && ++s->x)
 	{
 		s->p[1] += ft_pow(2, 8 - ((2 * ++s->i) - 1));
-		if (s->line[s->x] == LABEL_CHAR && ++s->x)
+		if (s->line[s->x] == LABEL_CHAR && (*s->p <= 2 || *s->p == 6 || *s->p == 7 || *s->p == 8 || *s->p == 13) && ++s->x)
 			ft_label_value_registration(s, 32);
+		else if (s->line[s->x] == LABEL_CHAR && ++s->x)
+			ft_label_value_registration(s, 16);
 		else
 		{
 			s->inst_val = ft_atoi(s->line + s->x);
-			if ((*s->p == 9 || *s->p == 12 || *s->p == 15) && (s->inst_len += 2))
+			if (((*s->p >= 9 && *s->p <= 12) || *s->p == 15) && (s->inst_len += 2))
 				*(short*)(s->p + s->inst_len - 2) = ft_reverse_int(s->inst_val, 16);
 			else if ((s->inst_len += 4))
 				*(int*)(s->p + s->inst_len - 4) = ft_reverse_int(s->inst_val, 32);
@@ -132,7 +132,9 @@ void			ft_instruction_line(t_asm *s)
 	s->i = 0;
 	while (s->line[s->x + s->i] >= 97 && s->line[s->x + s->i] <= 122)
 		s->i++;
-	if (ft_strnstr(INSTRUCT_LST, s->line + s->x, s->i))
+	if (ft_strnstr(INSTRUCT_LST, s->line + s->x, s->i) &&
+	(s->line[s->x + s->i] == SEPARATOR_CHAR || s->line[s->x + s->i] == ' '
+	|| s->line[s->x + s->i] == '\t'))
 		*s->p = (ft_strnstr(INSTRUCT_LST, s->line + s->x, s->i) - INSTRUCT_LST) / 6;
 	else
 	{
@@ -155,7 +157,6 @@ void			ft_instruction_line(t_asm *s)
 	{
 		s->part = ft_lstaddnew_free(s->part, s->p, s->inst_len);
 		s->current_position += s->inst_len;
-		printf("[%d][%d][%d]\n", s->y, s->current_position, s->inst_len);
 	}
 	else if (!s->error)
 		ft_error(s, s->y, s->x, "instruction line");
@@ -200,7 +201,6 @@ void		ft_parse_and_transcript(t_asm *s)
 		s->part->content = ft_memalloc(s->part->content_size);
 		*(int*)s->part->content = ft_reverse_int(COREWAR_EXEC_MAGIC, 32);
 		s->p = (char*)s->part->content + 4;
-		s->current_position = s->part->content_size + 1;
 	}
 	if (!s->error && s->name_and_comment <= 1)
 		ft_name_and_comment(s, NAME_CMD_STRING, PROG_NAME_LENGTH, "name");
