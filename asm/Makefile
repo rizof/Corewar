@@ -6,7 +6,7 @@
 #    By: amanuel <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/24 01:22:10 by tmanuel           #+#    #+#              #
-#    Updated: 2018/12/29 20:45:15 by amanuel          ###   ########.fr        #
+#    Updated: 2019/04/06 07:29:47 by amanuel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,8 +28,9 @@ INC_PATH = ./includes/
 
 # Name
 
-SRC_NAME = asm_main.c \
-	   asm_parsing.c \
+SRC_NAME = asm_main_read_print_error.c \
+		   asm_transcript.c \
+		   asm_actions.c \
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 

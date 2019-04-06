@@ -6,7 +6,7 @@
 /*   By: amanuel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/19 22:29:04 by amanuel           #+#    #+#             */
-/*   Updated: 2019/01/05 06:39:58 by amanuel          ###   ########.fr       */
+/*   Updated: 2019/04/06 00:35:15 by amanuel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void		max_value(char bits, char sign, long *num, long *ber)
 	else if (bits == 64 && !sign && (*num = 9))
 		*ber = 223372036854775807;
 	else if (bits == 64 && sign && (*num = 1))
-		*ber = 8446744073709551615;	
+		*ber = 8446744073709551615;
 }
 
 int				ft_isint(char *str, char bits)
