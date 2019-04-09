@@ -6,7 +6,7 @@
 /*   By: amanuel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 15:51:36 by amanuel           #+#    #+#             */
-/*   Updated: 2019/04/06 07:37:04 by amanuel          ###   ########.fr       */
+/*   Updated: 2019/04/09 19:36:39 by amanuel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,11 @@ void			ft_put_labels_value(t_asm *s)
 		if ((s->j = ft_strtab(s->label_name_lst, s->label_called_lst[s->i])) >= 0)
 		{
 			if (s->label_called_val_lst[s->i][1] == 16)
-			{
 				*(short*)(s->label_pointer_lst[s->i]) = ft_reverse_int(
 		*s->label_val_lst[s->j] - *s->label_called_val_lst[s->i], 16);
-			}
 			else
-			{
 				*(int*)(s->label_pointer_lst[s->i]) = ft_reverse_int(
 		*s->label_val_lst[s->j] - *s->label_called_val_lst[s->i], 32);
-			}
 		}
 		else
 			ft_error(s, s->label_called_val_lst[s->i][2],
@@ -38,7 +34,7 @@ void			ft_put_labels_value(t_asm *s)
 	}
 }
 
-void		ft_label_value_registration(t_asm *s, char bits)
+void			ft_label_value_registration(t_asm *s, char bits)
 {
 	s->j = 0;
 	while (s->line[s->x + s->j] && ft_strchr(LABEL_CHARS, s->line[s->x + s->j]))
@@ -67,7 +63,7 @@ void		ft_label_value_registration(t_asm *s, char bits)
 		ft_error(s, s->y, s->x, "label value registration");
 }
 
-char		ft_label_name_registration(t_asm *s)
+char			ft_label_name_registration(t_asm *s)
 {
 	s->i = 0;
 	while (ft_strchr(LABEL_CHARS, s->line[s->x + s->i]))
@@ -92,46 +88,47 @@ char		ft_label_name_registration(t_asm *s)
 	return (1);
 }
 
-void        ft_register_action(t_asm *s)
+void			ft_register_action_direct(t_asm *s)
 {
-    if (s->i && (s->line[s->x] == SEPARATOR_CHAR || !s->error++))
-        s->x += 1 + ft_count_whitespace(s->line + s->x + 1);
-    
-    if (!s->error && s->line[s->x] == 'r' && ++s->x)
-    {
-        s->inst_val = ft_atoi(s->line + s->x);
-        s->fresh[s->inst_len] = s->inst_val;
-        s->x += ft_isint(s->line + s->x, 8);
-        s->fresh[1] += ft_pow(2, 8 - (2 * ++s->i));
-        s->inst_len += 1;
-    }
-    else if (!s->error && s->line[s->x] == LABEL_CHAR && ++s->x)
-    {
-        s->fresh[1] += ft_pow(2, 8 - ((2 * ++s->i) - 1)) + ft_pow(2, 8 - (2 * s->i));
-        ft_label_value_registration(s, 16);
-    }
-    else if (!s->error && s->line[s->x] == DIRECT_CHAR && ++s->x)
-    {
-        s->fresh[1] += ft_pow(2, 8 - ((2 * ++s->i) - 1));
-        if (s->line[s->x] == LABEL_CHAR && (*s->fresh <= 2 || *s->fresh == 6 || *s->fresh == 7 || *s->fresh == 8 || *s->fresh == 13) && ++s->x)
-            ft_label_value_registration(s, 32);
-        else if (s->line[s->x] == LABEL_CHAR && ++s->x)
-            ft_label_value_registration(s, 16);
-        else
-        {
-            s->inst_val = ft_atoi(s->line + s->x);
-            if (((*s->fresh >= 9 && *s->fresh <= 12) || *s->fresh == 15) && (s->inst_len += 2))
-                *(short*)(s->fresh + s->inst_len - 2) = ft_reverse_int(s->inst_val, 16);
-            else if ((s->inst_len += 4))
-                *(int*)(s->fresh + s->inst_len - 4) = ft_reverse_int(s->inst_val, 32);
-            s->x += ft_isint(s->line + s->x, 32);
-        }
-    }
-    else if (!s->error)
-        ft_error(s, s->y, s->x, "register action");
+	if (!s->error && s->line[s->x] == DIRECT_CHAR && ++s->x)
+	{
+		s->sum += ft_pow(2, 8 - ((2 * ++s->i) - 1));
+		s->fresh[1] += ft_pow(2, 8 - ((2 * s->i) - 1));
+		if (s->line[s->x] == LABEL_CHAR && ft_strchr(DIRLAB_SHORT, *s->fresh) && ++s->x)
+			ft_label_value_registration(s, 32);
+		else if (s->line[s->x] == LABEL_CHAR && ++s->x)
+			ft_label_value_registration(s, 16);
+		else
+		{
+			s->inst_val = ft_atoi(s->line + s->x);
+			if (ft_strchr(DIR_SHORT, *s->fresh) && (s->inst_len += 2))
+				*(short*)(s->fresh + s->inst_len - 2) = ft_reverse_int(s->inst_val, 16);
+			else if ((s->inst_len += 4))
+				*(int*)(s->fresh + s->inst_len - 4) = ft_reverse_int(s->inst_val, 32);
+			s->x += ft_isint(s->line + s->x, 32);
+		}
+	}
+	else if (!s->error)
+		ft_error(s, s->y, s->x, "invalid action");
 }
 
-
-
-
-
+void			ft_register_action(t_asm *s)
+{
+	if (!s->error && s->line[s->x] == 'r' && ++s->x)
+	{
+		s->inst_val = ft_atoi(s->line + s->x);
+		s->fresh[s->inst_len] = s->inst_val;
+		s->x += ft_isint(s->line + s->x, 8);
+		s->sum += ft_pow(2, 8 - (2 * ++s->i));
+		s->fresh[1] += ft_pow(2, 8 - (2 * s->i));
+		s->inst_len += 1;
+	}
+	else if (!s->error && s->line[s->x] == LABEL_CHAR && ++s->x)
+	{
+		ft_label_value_registration(s, 16);
+		s->sum += ft_pow(2, 8 - ((2 * ++s->i) - 1)) + ft_pow(2, 8 - (2 * s->i));
+		s->fresh[1] += ft_pow(2, 8 - ((2 * s->i) - 1)) + ft_pow(2, 8 - (2 * s->i));
+	}
+	else
+		ft_register_action_direct(s);
+}

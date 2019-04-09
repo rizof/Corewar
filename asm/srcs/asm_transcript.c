@@ -6,7 +6,7 @@
 /*   By: amanuel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 15:51:36 by amanuel           #+#    #+#             */
-/*   Updated: 2019/04/06 08:03:28 by amanuel          ###   ########.fr       */
+/*   Updated: 2019/04/09 18:39:44 by amanuel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,15 @@
 
 void			ft_transcript_line(t_asm *s)
 {
-	*s->fresh = (ft_strnstr(INSTRUCT_LST,
-					s->line + s->x, s->i) - INSTRUCT_LST) / 6;
-	s->x += s->i;
-	s->x += ft_count_whitespace(s->line + s->x);
 	s->i = 0;
 	while (!s->error && s->i < *s->checksum[*(int8_t*)s->fresh])
+	{
+		if (s->i && (s->line[s->x] == SEPARATOR_CHAR))
+			s->x += 1 + ft_count_whitespace(s->line + s->x + 1);
+		else if (s->i)
+			ft_error(s, s->y, s->x, NULL);
 		ft_register_action(s);
+	}
 	if (!s->error
 	&& ((*s->fresh == 1
 		|| *s->fresh == 9
@@ -46,6 +48,10 @@ void			ft_check_line(t_asm *s)
 				|| s->line[s->x + s->i] == ' '
 				|| s->line[s->x + s->i] == '\t'))
 	{
+		*s->fresh = (ft_strnstr(INSTRUCT_LST,
+					s->line + s->x, s->i) - INSTRUCT_LST) / 6;
+		s->x += s->i;
+		s->x += ft_count_whitespace(s->line + s->x);
 		s->inst_len = 1;
 		if (!(*s->fresh == 1
 		|| *s->fresh == 9

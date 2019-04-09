@@ -6,7 +6,7 @@
 /*   By: amanuel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/06 00:41:00 by amanuel           #+#    #+#             */
-/*   Updated: 2019/04/06 07:37:00 by amanuel          ###   ########.fr       */
+/*   Updated: 2019/04/09 19:31:01 by amanuel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@
 # include "../libft/includes/libft.h"
 
 # define INSTRUCT_LST		"______live__ld____st____add___sub___and___or____xor___zjmp__ldi___sti___fork__lld___lldi__lfork_aff___"
+# define DIR_SHORT		(char[5]){9,10,11,12,15}	
+# define DIRLAB_SHORT	(char[6]){9,10,11,12,14,15}
+
 
 /* # define CHECKSUM	{LIVE,LD,ST,ADD,SUB,AND,OR,XOR,ZJMP,LDI,STI,FORK,LLD,LLDI,LFORK,AFF}
 # define LIVE			(uint8_t[2]){1,128}
